@@ -8,11 +8,16 @@ const auth = require("../../middlewares/auth");
  * @access  Public
  */
 router.post("/register", async (req, res) => {
-  const user = new User(req.body);
   try {
-    await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return res.status(400).send("User already registered!");
+    } else {
+      const user = new User(req.body);
+      await user.save();
+      const token = await user.generateAuthToken();
+      res.status(201).send({ user, token });
+    }
   } catch (e) {
     res.status(400).send(e);
   }

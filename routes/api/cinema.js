@@ -74,6 +74,7 @@ router.patch("/updatecinema/:id", auth.enhance, async (req, res) => {
     "seats",
     "seatsAvailable",
     "cityId",
+    "address",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)

@@ -26,21 +26,18 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+app.set("views", "views");
 app.set("view engine", "ejs");
 
-// const allowedOrigins = [
-//   "http://localhost:3000/",
-//   "http://localhost:3001/",
-//   "https://bookmyshow099.herokuapp.com/",
-// ];
+const allowedOrigins = ["http://localhost:3000/", "http://localhost:3001/"];
 
-// app.use(
-//   cors({
-//     origin: allowedOrigins,
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+  })
+);
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect

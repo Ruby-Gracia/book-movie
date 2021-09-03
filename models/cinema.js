@@ -17,6 +17,11 @@ const cinemaSchema = new Schema({
     required: true,
     ref: "City",
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  seats: {},
   seatsAvailable: {
     type: Number,
     required: true,

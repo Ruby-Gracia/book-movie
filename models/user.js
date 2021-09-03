@@ -8,7 +8,7 @@ dotenv.config({ path: "./.env" });
 const { Schema } = mongoose;
 const userSchema = Schema(
   {
-    name: {
+    username: {
       type: String,
       unique: true,
       required: true,
@@ -80,13 +80,18 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.statics.findByCredentials = async function (email, password) {
+userSchema.statics.findByCredentials = async function (
+  username,
+  email,
+  password
+) {
   const User = this;
-  const user = await User.findOne({ email });
-  if (!user) throw new Error("Unable to login");
+
+  const user = await User.findOne(username ? { username } : { email });
+  if (!user) throw new Error("Credentials are invalid");
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error("Unable to login");
+  if (!isMatch) throw new Error("Credentials are invalid");
 
   return user;
 };

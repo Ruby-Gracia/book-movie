@@ -37,7 +37,7 @@ router.get("/getshowtime/:id", async (req, res) => {
 });
 
 // Update showtime by id
-router.patch("/showtimes/:id", auth.enhance, async (req, res) => {
+router.patch("/updateshowtime/:id", auth.enhance, async (req, res) => {
   const _id = req.params.id;
   const updates = Object.keys(req.body);
   const allowedUpdates = [

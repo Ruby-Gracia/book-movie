@@ -9,8 +9,8 @@ const auth = require("../../middlewares/auth");
  */
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findByCredentials(email, password);
+    const { username, email, password } = req.body;
+    const user = await User.findByCredentials(username, email, password);
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (e) {
